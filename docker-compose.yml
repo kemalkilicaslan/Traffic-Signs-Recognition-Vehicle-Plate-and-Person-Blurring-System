@@ -1,0 +1,17 @@
+services:
+  traffic-signs-blurring:
+    build: .
+    image: traffic-signs-plate-person-blurring:latest
+    container_name: traffic-signs-plate-person-blurring
+    volumes:
+      - ./:/app                  # input video, model weights and outputs shared with host
+      - torch-cache:/root/.cache # cache downloaded model weights between runs
+    # cv2.imshow window only works on Linux + X11. Leave disabled on macOS/Windows;
+    # set SHOW_WINDOW = False in config.py for headless runs. The script still writes
+    # the annotated output video to the project folder.
+    # environment:
+    #   - DISPLAY=${DISPLAY}
+    # Add "- /tmp/.X11-unix:/tmp/.X11-unix" to the volumes above to enable X11.
+
+volumes:
+  torch-cache:
